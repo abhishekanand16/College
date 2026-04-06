@@ -1,5 +1,3 @@
-// Lab 8 - 22AI471: GUI using Java Swing
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

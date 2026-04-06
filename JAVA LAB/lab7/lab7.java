@@ -1,5 +1,3 @@
-// Lab 7 - 22AI471: GUI using Java Applet (Swing equivalent - applets are deprecated)
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

@@ -1,4 +1,3 @@
-// Lab 12 - 22AI471
 // 12a) Handle HTTP request and HTTP response
 // Using Java 11+ HttpClient for demo (no servlet container needed)
 

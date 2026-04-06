@@ -1,5 +1,3 @@
-// Lab 2 - 22AI471: Implement this() for Cube class with 3 constructors
-
 public class lab2 {
     private double sideLength;
 

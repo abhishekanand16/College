@@ -1,5 +1,3 @@
-// Lab 3 - 22AI471: Dynamic polymorphism and interfaces (single-file version)
-
 interface Shape {
     double calculateArea();
 }

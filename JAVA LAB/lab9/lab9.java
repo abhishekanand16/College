@@ -1,5 +1,3 @@
-// Lab 9 - 22AI471: JDBC GUI - Add, Delete, Display, Exit (in-memory when no SQLite)
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

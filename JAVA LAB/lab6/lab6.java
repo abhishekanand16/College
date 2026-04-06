@@ -1,5 +1,3 @@
-// Lab 6 - 22AI471: Event handling using Java AWT
-
 import java.awt.*;
 import java.awt.event.*;
 

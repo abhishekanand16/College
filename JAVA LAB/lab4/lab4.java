@@ -1,5 +1,3 @@
-// Lab 4 - 22AI471: Method overriding and overloading using Inheritance
-
 class Animal {
     public void makeSound() {
         System.out.println("The animal makes a sound");

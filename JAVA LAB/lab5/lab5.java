@@ -1,5 +1,3 @@
-// Lab 5 - 22AI471: Multi-thread - generator, square (even), cube (odd)
-
 import java.util.Random;
 
 class SharedNumber {

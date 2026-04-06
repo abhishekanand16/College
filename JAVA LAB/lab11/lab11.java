@@ -1,4 +1,3 @@
-// Lab 11 - 22AI471
 // 11a) Servlet that displays current system date and time
 // 11b) Servlet that uses Cookies to store visit count
 // Run servlet code in Tomcat. This file runs standalone to show the logic.
