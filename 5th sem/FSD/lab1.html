@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Calculator</title>
+
+    <script>
+        function calculate() {
+            let a = Number(document.getElementById("num1").value);
+            let b = Number(document.getElementById("num2").value);
+
+            document.getElementById("sum").innerHTML = a + b;
+            document.getElementById("diff").innerHTML = a - b;
+            document.getElementById("prod").innerHTML = a * b;
+            document.getElementById("quot").innerHTML = a / b;
+        }
+    </script>
+</head>
+
+<body>
+
+<h2>Calculator</h2>
+
+Enter first number:
+<input type="number" id="num1">
+
+<br><br>
+
+Enter second number:
+<input type="number" id="num2">
+
+<br><br>
+
+<button onclick="calculate()">Calculate</button>
+
+<p>Sum = <span id="sum"></span></p>
+<p>Difference = <span id="diff"></span></p>
+<p>Product = <span id="prod"></span></p>
+<p>Quotient = <span id="quot"></span></p>
+
+</body>
+</html>
+  

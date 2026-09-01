@@ -1,0 +1,30 @@
+<html>
+<body>
+<h2>Binary Search</h2>
+<input id="array" placeholder="enter array with , ">
+<input id="number" type="number">
+<button onclick="search()">Search</button>
+<p id="result"></p>
+<script>
+function search() {
+    let a = document.getElementById("array").value.split(",").map(Number);
+    let n = Number(document.getElementById("number").value);
+    let low = 0, high = a.length - 1;
+
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+
+        if (a[mid] == n) {
+            result.innerHTML = "Element found";
+            return;
+        }
+        if (a[mid] < n)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    result.innerHTML = "Element not found";
+}
+</script>
+</body>
+</html>
