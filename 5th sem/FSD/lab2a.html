@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: Arial; text-align: center; }
+.box { display: inline-block; text-align: left; border: 1px solid #333; padding: 16px; margin-top: 24px; }
+table { margin-top: 12px; border-collapse: collapse; }
+td, th { padding: 4px 8px; }
+</style>
+</head>
+<body>
+<div class="box">
+
+ID: <input id="id">
+Name: <input id="n">
+Salary: <input id="s">
+
+<button onclick="add()">Add</button>
+
+<table border="1" id="t">
+<tr><th>ID<th>Name<th>Salary<th>Bonus<th>Total</tr>
+</table>
+
+</div>
+<script>
+let employees=[];
+
+function add(){
+ let salary=+s.value;
+ let bonus=salary*.1;
+ let total=salary+bonus;
+
+ let e={id:id.value,name:n.value,salary,bonus,total};
+ employees.push(e);
+
+ t.innerHTML+=`<tr>
+ <td>${e.id}
+ <td>${e.name}
+ <td>${e.salary}
+ <td>${e.bonus}
+ <td>${e.total}`;
+}
+</script>
+
+</body>
+</html>

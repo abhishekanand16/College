@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: Arial; text-align: center; }
+.box { display: inline-block; text-align: left; border: 1px solid #333; padding: 16px; margin-top: 24px; }
+table { margin-top: 12px; border-collapse: collapse; }
+td, th { padding: 4px 8px; }
+</style>
+</head>
+<body>
+<div class="box">
+
+Roll: <input id="r">
+Name: <input id="n"><br><br>
+
+Marks:<br>
+S1 Math <input id="m1" size="2">
+S2 Physics <input id="m2" size="2">
+S3 Chemistry <input id="m3" size="2">
+S4 English <input id="m4" size="2">
+S5 CS <input id="m5" size="2">
+
+<button onclick="add()">Add</button>
+
+<table border="1" id="t">
+<tr><th>Roll<th>Name<th>S1<th>S2<th>S3<th>S4<th>S5<th>Total<th>Avg<th>Grade</tr>
+</table>
+
+</div>
+<script>
+let students=[];
+
+function add(){
+ let marks=[],total=0;
+ for(let i=1;i<=5;i++){
+   let x=+document.getElementById("m"+i).value;
+   marks.push(x); total+=x;
+ }
+
+ let avg=total/5;
+ let grade=avg>=90?"A":avg>=75?"B":avg>=60?"C":avg>=50?"D":"F";
+
+ let s={roll:r.value,name:n.value,marks,total,avg,grade};
+ students.push(s);
+
+ t.innerHTML+=`<tr><td>${s.roll}<td>${s.name}<td>${s.marks[0]}<td>${s.marks[1]}<td>${s.marks[2]}<td>${s.marks[3]}<td>${s.marks[4]}<td>${s.total}<td>${s.avg}<td>${s.grade}`;
+}
+</script>
+
+</body>
+</html>

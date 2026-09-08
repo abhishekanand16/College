@@ -1,0 +1,27 @@
+from nltk import CFG
+from nltk.parse import ChartParser
+
+G = CFG.fromstring("""
+S -> NP VP
+NP -> 'i' | Det N | NP PP
+VP -> V NP | VP PP
+PP -> P NP
+Det -> 'the'
+N -> 'man' | 'telescope'
+V -> 'saw'
+P -> 'with'
+""")
+
+sent = "i saw the man with the telescope".split()
+trees = list(ChartParser(G).parse(sent))
+meanings = [
+    "I used the telescope to see the man.",
+    "I saw the man who had the telescope.",
+]
+
+print("Sentence:", " ".join(sent))
+print("Parse trees:", len(trees))
+for i, t in enumerate(trees, 1):
+    print(f"\n--- Tree {i} ---")
+    t.pretty_print()
+    print(f"Meaning: {meanings[i - 1]}")

@@ -1,0 +1,31 @@
+from nltk import CFG
+from nltk.parse import ChartParser
+
+G = CFG.fromstring("""
+S -> NP VP
+NP -> Det Adj N Conj N | NP Conj N
+NP -> Det Adj N | Det N
+VP -> V PP
+PP -> P NP
+Det -> 'the'
+Adj -> 'old'
+N -> 'men' | 'women' | 'bank'
+Conj -> 'and'
+V -> 'sat'
+P -> 'near'
+""")
+
+sent = "the old men and women sat near the bank".split()
+trees = list(ChartParser(G).parse(sent))
+meanings = [
+    "Only the men are old; the women may not be.",
+    "Both the men and the women are old.",
+]
+
+print("Sentence:", " ".join(sent))
+print("Parse trees:", len(trees))
+for i, t in enumerate(trees, 1):
+    print(f"\n--- Parse {i} ---")
+    t.pretty_print()
+    print(f"Scope: {meanings[i - 1]}")
+print("\nLexical: 'bank' → Near the river bank (not a financial bank).")
