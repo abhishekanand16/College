@@ -1,0 +1,76 @@
+import re
+def a(x):
+    return re.sub(r'[,.!?]', '', x).split()
+def b(x):
+    for i in range(1, len(x)):
+        y = x[i:]
+        if len(y) >= 3:
+            z = y[2].lower()
+            if z.endswith(('s', 'ed', 'ing')) or z in ('is', 'am', 'are', 'was', 'were'):
+                return x[:i], x[i:]
+    return x, []
+def c(x):
+    for i, y in enumerate(x):
+        z = y.lower()
+        if z.endswith(('s', 'ed', 'ing')) or z in ('is', 'am', 'are', 'was', 'were'):
+            return i, y
+    if len(x) >= 2:
+        return 1, x[1]
+    return -1, None
+def d(x):
+    if not x:
+        return None
+    i, p = c(x)
+    if i == -1:
+        return None
+    s = ' '.join(x[:i])
+    o = ' '.join(x[i + 1:])
+    return s, p, o if o else None
+def e(x):
+    print('S')
+    print('|-- NP')
+    print('|   `--', x[0])
+    print('`-- VP')
+    print('    |-- V')
+    print('    |   `--', x[1])
+    if x[2]:
+        print('    `-- NP')
+        print('        `--', x[2])
+def f(x):
+    print('[')
+    print('    PRED =', x[1])
+    print('    SUBJ =')
+    print('        [')
+    print('            FORM =', x[0])
+    print('        ]')
+    if x[2]:
+        print('    OBJ =')
+        print('        [')
+        print('            FORM =', x[2])
+        print('        ]')
+    print(']')
+x = input('Enter a sentence: ')
+y = a(x)
+z, w = b(y)
+print('\nMAIN CLAUSE')
+q = d(z)
+if q:
+    print('SUBJ:', q[0])
+    print('PRED:', q[1])
+    print('OBJ :', q[2])
+    print('\nC-STRUCTURE:')
+    e(q)
+    print('\nF-STRUCTURE:')
+    f(q)
+if w:
+    print('\nRELATED CLAUSE')
+    print('CONNECTOR:', w[0])
+    q = d(w[1:])
+    if q:
+        print('SUBJ:', q[0])
+        print('PRED:', q[1])
+        print('OBJ :', q[2])
+        print('\nC-STRUCTURE:')
+        e(q)
+        print('\nF-STRUCTURE:')
+        f(q)
