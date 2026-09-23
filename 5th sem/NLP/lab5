@@ -1,0 +1,18 @@
+sentences = ["I love Natural Language Processing",
+    "I love Machine Learning",
+    "Machine Learning is useful",
+    "Students learn Natural Language Processing",
+    "Students learn Machine Learning"
+]
+def predict(context):
+    c = context.split()
+    n = [w[i+len(c)] for s in sentences for w in [s.split()]
+         for i in range(len(w)-len(c)) if w[i:i+len(c)] == c]
+    if not n:
+        print("No prediction found")
+    else:
+        for x in set(n):
+            print(x, ":", n.count(x), "time(s), Probability =", n.count(x)/len(n))
+predict("I love")
+predict("Students")
+predict("Students learn")
