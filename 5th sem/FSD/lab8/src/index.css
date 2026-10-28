@@ -109,3 +109,64 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.product-page {
+  padding: 20px;
+  text-align: left;
+}
+
+.product-page h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.toolbar-btn {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.toolbar-btn:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.toolbar-btn.active {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+  font-weight: 600;
+}
+
+.import-btn {
+  display: inline-block;
+  margin: 0;
+}
+
+.import-btn input[type="file"] {
+  display: none;
+}
+
+.hint,
+.status {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--text);
+}
+
+.status {
+  color: var(--text-h);
+}

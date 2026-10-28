@@ -1,30 +1,102 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Product from "./Product";
 
+const PRICE_FILTERS = [100, 200, 300, 400, 500];
+
 function ProductList() {
-  const [products] = useState([
-    { id: 1, name: "Rice", price: 450, expiryDate: "2026-12-01" },
-    { id: 2, name: "Laptop", price: 55000, expiryDate: "2028-06-15" },
-    { id: 3, name: "Soap", price: 35, expiryDate: "2027-03-20" },
-    { id: 4, name: "Notebook", price: 120, expiryDate: "2030-01-01" },
-    { id: 5, name: "Headphones", price: 899, expiryDate: "2029-08-10" },
-    { id: 6, name: "Milk", price: 60, expiryDate: "2026-10-30" },
-  ]);
+  const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState("all");
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  async function loadProducts() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/products");
+      if (!res.ok) throw new Error("Could not load products.");
+      const data = await res.json();
+      setProducts(data);
+      setStatus("");
+    } catch {
+      setStatus("Start the API server: npm run server (in another terminal).");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  async function handleImport(event) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setStatus("Importing…");
+    try {
+      const res = await fetch("/api/products/import", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Import failed.");
+      setProducts(data.products);
+      setFilter("all");
+      setStatus(
+        `Imported ${data.products.length} products (saved as ${data.savedAs} in data/imports/).`,
+      );
+    } catch (err) {
+      setStatus(err.message || "Import failed.");
+    }
+  }
 
   let filteredProducts = products;
-  if (filter === "under500") {
-    filteredProducts = products.filter((p) => p.price < 500);
+  if (filter !== "all") {
+    const maxPrice = Number(filter);
+    filteredProducts = products.filter((p) => p.price < maxPrice);
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="product-page">
       <h2>Product List</h2>
-      <button onClick={() => setFilter("all")}>All Products</button>{" "}
-      <button onClick={() => setFilter("under500")}>Under ₹500</button>
+      <div className="toolbar">
+        <button
+          type="button"
+          className={`toolbar-btn${filter === "all" ? " active" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          All Products
+        </button>
+        {PRICE_FILTERS.map((limit) => (
+          <button
+            key={limit}
+            type="button"
+            className={`toolbar-btn${filter === String(limit) ? " active" : ""}`}
+            onClick={() => setFilter(String(limit))}
+          >
+            Under ₹{limit}
+          </button>
+        ))}
+        <label className="toolbar-btn import-btn">
+          Import Excel
+          <input
+            type="file"
+            accept=".xlsx,.xls"
+            onChange={handleImport}
+          />
+        </label>
+      </div>
+      <p className="hint">
+        Sample file: <code>data/sample-products.xlsx</code> (Name, Price, Expiry Date)
+      </p>
+      {status && <p className="status">{status}</p>}
       <br />
       <br />
-      <Product products={filteredProducts} />
+      {loading ? <p className="hint">Loading…</p> : <Product products={filteredProducts} />}
     </div>
   );
 }
